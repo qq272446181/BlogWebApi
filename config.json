@@ -1,0 +1,14 @@
+{
+  "database": {
+    "driver": "sqlite",
+    "name": "BlogData.db",
+    "host": "",
+    "port": "",
+    "user": "",
+    "password": ""
+  },
+  "jwt": {
+    "secret": "my_secret_key",
+    "expire_hours": 24
+  }
+}

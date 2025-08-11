@@ -1,0 +1,291 @@
+basePath: /
+definitions:
+  controllers.AuthInput:
+    description: 用户账户信息
+    properties:
+      email:
+        example: 272@qq.com
+        type: string
+      password:
+        description: 密码
+        example: password123
+        type: string
+      username:
+        description: 用户账号
+        example: admin
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  controllers.CommentInput:
+    properties:
+      content:
+        description: 评论内容
+        type: string
+    required:
+    - content
+    type: object
+  controllers.PostInput:
+    properties:
+      content:
+        description: 文章内容
+        type: string
+      title:
+        description: 文章标题
+        type: string
+    required:
+    - content
+    - title
+    type: object
+  models.ApiResponse:
+    properties:
+      data: {}
+      message:
+        type: string
+      status:
+        type: boolean
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: 272446181@qq.com
+    name: API Support
+  description: 这是一个使用 Go + Gin + GORM 实现的个人博客系统
+  license:
+    name: MIT
+  title: 个人博客系统 API
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录获取JWT令牌
+      parameters:
+      - description: 登录信息
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.AuthInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+      summary: 用户登录
+      tags:
+      - 认证
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: 注册新用户
+      parameters:
+      - description: 注册信息
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.AuthInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+      summary: 用户注册
+      tags:
+      - 认证
+  /posts:
+    get:
+      description: 获取文章列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+      summary: 获取文章列表
+      tags:
+      - 文章
+    post:
+      consumes:
+      - application/json
+      description: 创建文章
+      parameters:
+      - description: 文章输入模型
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.PostInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+      summary: 创建文章
+      tags:
+      - 文章
+  /posts/{id}:
+    delete:
+      description: 删除文章
+      parameters:
+      - description: 文章ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+      summary: 删除文章
+      tags:
+      - 文章
+    get:
+      description: 根据ID获取文章
+      parameters:
+      - description: 文章ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+      summary: 根据ID获取文章
+      tags:
+      - 文章
+    put:
+      consumes:
+      - application/json
+      description: 更新文章
+      parameters:
+      - description: 文章ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 文章输入模型
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.PostInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+      summary: 更新文章
+      tags:
+      - 文章
+  /posts/{id}/addcomment:
+    post:
+      consumes:
+      - application/json
+      description: 新增评论
+      parameters:
+      - description: 文章ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 评论内容
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.CommentInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+      summary: 新增评论
+      tags:
+      - 评论
+  /posts/{id}/deletecomment/{commentId}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除评论
+      parameters:
+      - description: 文章ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 评论ID
+        in: path
+        name: commentId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ApiResponse'
+      summary: 删除评论
+      tags:
+      - 删评论
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

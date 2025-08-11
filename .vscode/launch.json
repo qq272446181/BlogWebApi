@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Go Web API",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}/main.go", // 入口文件路径
+            "env": {
+                "GIN_MODE": "debug", // Gin 框架专用（可选）
+                "PORT": "8080"       // 自定义环境变量
+            },
+            "args": [],             // 命令行参数（如 --config=prod.yaml）
+            "showLog": true,
+            "buildFlags": "-tags=jsoniter" // 编译标签（可选）
+        }
+    ]
+}

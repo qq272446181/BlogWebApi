@@ -1,0 +1,40 @@
+# 创建目录
+mkdir BlogWebApi && cd BlogWebApi
+
+# git仓储命令
+echo "# BlogWebApi" >> README.md 
+git init 
+git add README.md 
+git commit -m "首次提交" 
+git branch -M main 
+git remote add origin https://github.com/qq272446181/BlogWebApi.git
+git push -u origin main
+
+# go初始化项目命令
+go mod init github.com/qq272446181/BlogWebApi
+
+# 中间件包命令
+go get -u gorm.io/gorm
+go get -u gorm.io/driver/mysql
+go get -u gorm.io/driver/sqlite
+
+# Web框架以及相关中间件
+go get -u github.com/gin-gonic/gin
+# JSON 校验（用于请求参数验证）
+go get -u github.com/go-playground/validator/v10
+
+# 环境变量管理（加载 .env 文件）
+go get -u github.com/joho/godotenv
+
+# JWT 认证（用户鉴权）
+go get -u golang.org/x/crypto/bcrypt
+go get -u github.com/golang-jwt/jwt/v5
+
+# Swagger 文档（API 文档生成）
+go get -u github.com/swaggo/swag/cmd/swag
+go get -u github.com/swaggo/gin-swagger
+go get -u github.com/swaggo/files
+go install github.com/swaggo/swag/cmd/swag@latest
+
+# 生成swag文档 
+swag init -g main.go
