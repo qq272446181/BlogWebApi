@@ -282,7 +282,7 @@ paths:
             $ref: '#/definitions/models.ApiResponse'
       summary: 删除评论
       tags:
-      - 删评论
+      - 评论
 securityDefinitions:
   ApiKeyAuth:
     in: header

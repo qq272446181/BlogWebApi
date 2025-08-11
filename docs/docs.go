@@ -317,7 +317,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "删评论"
+                    "评论"
                 ],
                 "summary": "删除评论",
                 "parameters": [

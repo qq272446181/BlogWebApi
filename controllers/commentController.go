@@ -68,7 +68,7 @@ func CreateComment(c *gin.Context) {
 // DeleteComment 删除评论
 // @Summary 删除评论
 // @Description 删除评论
-// @Tags 删评论
+// @Tags 评论
 // @Accept  json
 // @Produce  json
 // @Param id path int true "文章ID"
